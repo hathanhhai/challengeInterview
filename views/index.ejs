@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <!-- CSS only -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container" id="app">
+      <div class="form-group">
+        <label for="">Link URL(default: link in challenge)</label>
+        <div class="row">
+          <div class="col-10">
+            <input
+              type="text"
+              disabled
+              class="form-control"
+              name=""
+              v-model="url"
+              id=""
+              aria-describedby="helpId"
+              placeholder="Link url"
+            />
+          </div>
+          <div class="col-2">
+            <button @click="crawl" onclick="renderChart()" class="btn btn-primary">Scan</button>
+          </div>
+        </div>
+        <br />
+        <div class="alert alert-danger" v-if="error != ''">{{ error }}</div>
+
+        <div  class="row">
+          <div class="col-6">
+            <div class="card">
+              <h5 class="card-header  text-default">Number of Mask each Venue </h5>
+              <div class="card-body">
+                <canvas  id="myChart" width="400" height="400"></canvas>
+                <div id="myChartImage"></div>
+                <button v-if="!loading" onclick="exportImageLine()" class="btn btn-success btn-sm">Export Image</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="card ">
+              <h5 class="card-header">Number of Mask each Venue</h5>
+              <div class="card-body">
+                <canvas  id="myChartBar" width="400" height="400"></canvas>
+                <div id="myChartImageBar"></div>
+                <button v-if="!loading" onclick="exportImageBar()"  class="btn btn-success btn-sm">Export Image</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Mark(M)</th>
+              <th>Athlete</th>
+              <th>Date</th>
+              <th>Venue</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item,index) in data">
+              <td>{{ item.Mark }}</td>
+              <td>{{ item.Athlete }}</td>
+              <td>{{ item.Date }}</td>
+              <td>{{ item.Venue }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/downloadjs/1.4.8/download.min.js" integrity="sha512-WiGQZv8WpmQVRUFXZywo7pHIO0G/o3RyiAJZj8YXNN4AV7ReR1RYWVmZJ6y3H06blPcjJmG/sBpOVZjTSFFlzQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js"
+    integrity="sha512-0qU9M9jfqPw6FKkPafM3gy2CBAvUWnYVOfNPDYKVuRTel1PrciTj+a9P3loJB+j0QmN2Y0JYQmkBBS8W+mbezg=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+  <script src="https://unpkg.com/vue-chartjs@3.4.0/dist/vue-chartjs.js"></script>
+  <script src="/javascripts/index.js"></script>
+</html>
